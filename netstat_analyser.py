@@ -34,16 +34,16 @@ def load_content():
 def hex2dec(s):
     return str(int(s,16))
 
-def _ip(s):
+def ip(s):
     ip = [(hex2dec(s[6:8])),(hex2dec(s[4:6])),(hex2dec(s[2:4])),(hex2dec(s[0:2]))]
     return '.'.join(ip)
 
 def remove_empty(array):
     return [x for x in array if x !='']
 
-def convert_ip_port(array):
+def convertip_port(array):
     host,port = array.split(':')
-    return _ip(host),hex2dec(port)
+    return ip(host),hex2dec(port)
 
 def load_proc_id(inode):
 
@@ -75,8 +75,8 @@ def netstat():
     for line in content:
 		line = line.split(' ')
 		line_array = remove_empty(line)
-		l_host,l_port = convert_ip_port(line_array[1])
-		r_host,r_port = convert_ip_port(line_array[2])
+		l_host,l_port = convertip_port(line_array[1])
+		r_host,r_port = convertip_port(line_array[2])
 		tcp_id = line_array[0]
 		state = STATE[line_array[3]]
 		uid = pwd.getpwuid(int(line_array[7]))[0]
